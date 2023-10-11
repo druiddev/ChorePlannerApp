@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">ChorePlannerApp</string>
+    <string name="user_profile">User Profile</string>
+    <string name="family_chat">Family Chat</string>
+    <string name="calendar">Calendar</string>
+    <string name="chore_picker">Chore Picker</string>
+    <string name="home">Home</string>
+    <string name="nothing_to_display">Nothing To Display</string>
+    <string name="chore_image_icon">Chore Image Icon</string>
+    <string name="time_example">7:00 PM</string>
+    <string name="chore_example">Mop Bathroom Floors</string>
+    <string name="football_practice">Football Practice</string>
+    <string name="calendar_color_based_on_person">Calendar Color Based On Person</string>
+    <string name="example_name">Hi John!</string>
+    <string name="chores">Chores</string>
+    <string name="points">Points</string>
+    <string name="example_points">3,200 Points</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="living_room">Living Room</string>
+    <string name="half_bath">Half Bath</string>
+    <string name="full_bath">Full Bath</string>
+    <string name="bedroom">Bedroom</string>
+    <string name="chore_image">Chore Image</string>
+    <string name="chore_details">Chore Details</string>
+    <string name="_75_points">75 Points</string>
+    <string name="room">Room:</string>
+    <string name="room_example">Living Room</string>
+    <string name="room_image">Room Image</string>
+    <string name="is_this_chore_complete">Is This Chore Complete?</string>
+    <string name="yes">Yes</string>
+    <string name="parent_only_add_button">Parent Only Add Button</string>
+    <string name="bank">Bank</string>
+    <string name="weekly_spin">Weekly Spin</string>
+
+
+</resources>

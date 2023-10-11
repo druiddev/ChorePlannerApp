@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:background="@drawable/chore_picker_icon"
+        android:id="@+id/home_chore_list_image"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/chore_image_icon" />
+
+    <TextView
+        android:text="@string/chore_example"
+        android:id="@+id/home_chore_list_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+
+</LinearLayout>

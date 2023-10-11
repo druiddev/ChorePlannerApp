@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_background"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_layout"
+        android:backgroundTint="@color/purple_lightmode">
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_note_add_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/purple_dark_background"
+            android:contentDescription="@string/parent_only_add_button"
+            android:foreground="@drawable/add_note"
+            android:foregroundGravity="center"
+            android:foregroundTint="@color/limegreen" />
+
+        <TextView
+            android:id="@+id/home_note_pad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/purple_lightmode"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+
+    <GridView
+        android:id="@+id/home_chore_grid"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/purple_darkmode"
+        android:columnWidth="75dp"
+        android:numColumns="auto_fit" />
+
+    <ViewStub
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/stub_empty_state" />
+
+
+</LinearLayout>
