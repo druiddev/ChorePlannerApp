@@ -17,6 +17,13 @@
     <color name="transdarkblue">#BC3381A5</color>
 
 
+    <color name="dark_brown">#471900</color>
+    <color name="med_brown">#644b34</color>
+    <color name="red_brown">#915733</color>
+    <color name="light_red_brown">#a05720</color>
+    <color name="dark_tan">#cd7c4c</color>
+    <color name="light_tan">#fdc281</color>
+    <color name="honey_color">#ffc219</color>
 
 
     <color name="purple_background">#2D1F42</color>

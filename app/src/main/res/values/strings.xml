@@ -31,6 +31,9 @@
     <string name="parent_only_add_button">Parent Only Add Button</string>
     <string name="bank">Bank</string>
     <string name="weekly_spin">Weekly Spin</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 
 
 </resources>

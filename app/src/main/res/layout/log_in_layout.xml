@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:paddingBottom="10dp"
+        android:layout_width="300dp"
+        android:src="@drawable/lg__3_"
+        android:layout_height="400dp"/>
+
+    <EditText
+        android:hint="@string/email"
+        android:id="@+id/login_email"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:hint="@string/password"
+        android:id="@+id/login_password"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:autofillHints="password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/login_signin_button"
+        android:text="@string/sign_in"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="60dp"/>
+
+
+
+</LinearLayout>
