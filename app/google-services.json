@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "658856774213",
+    "project_id": "choreplannerapp",
+    "storage_bucket": "choreplannerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658856774213:android:19d3752cb459fc6114f12c",
+        "android_client_info": {
+          "package_name": "com.example.choreplannerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658856774213-om0avfpn3dshmgsf9g03ak25lcmlo5tj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.choreplannerapp",
+            "certificate_hash": "fda7bf0127382542f84914e23236de70c6533f0b"
+          }
+        },
+        {
+          "client_id": "658856774213-oa90c8v4euau7qmjv37kskd24k71n1u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcdf9pRR6BRJCdW3mQXoBoml3MDZzR1DU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658856774213-oa90c8v4euau7qmjv37kskd24k71n1u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

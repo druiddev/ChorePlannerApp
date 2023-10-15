@@ -47,7 +47,7 @@ public class ChoreBaseAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.chore_list_layout, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.weekday_grid_cell, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

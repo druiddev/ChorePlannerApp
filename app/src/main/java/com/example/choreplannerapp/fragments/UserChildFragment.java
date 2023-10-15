@@ -11,14 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.choreplannerapp.R;
+import com.example.choreplannerapp.interfaces.ChoreInterface;
 
-public class ChatFragment extends Fragment {
+import java.util.Objects;
 
-    public static ChatFragment newInstance() {
+public class UserChildFragment extends Fragment {
+
+    ChoreInterface choreListener;
+
+    public static UserChildFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        ChatFragment fragment = new ChatFragment();
+        UserChildFragment fragment = new UserChildFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -26,17 +31,23 @@ public class ChatFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+        if (context instanceof ChoreInterface) {
+            choreListener = (ChoreInterface) context;
+        }
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.chat_layout, container, false);
+        return inflater.inflate(R.layout.user_child_layout, container, false);
     }
-
 }

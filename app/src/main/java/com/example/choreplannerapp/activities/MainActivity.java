@@ -1,22 +1,26 @@
-package com.example.choreplannerapp;
+package com.example.choreplannerapp.activities;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.choreplannerapp.fragments.CalendarFragment;
-import com.example.choreplannerapp.fragments.ChatFragment;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.example.choreplannerapp.R;
+import com.example.choreplannerapp.fragments.LogInFragment;
+import com.example.choreplannerapp.fragments.SettingsFragment;
+import com.example.choreplannerapp.fragments.UserAdultFragment;
+import com.example.choreplannerapp.fragments.UserChildFragment;
+import com.example.choreplannerapp.fragments.WheelFragment;
+import com.example.choreplannerapp.fragments.BankFragment;
 import com.example.choreplannerapp.fragments.ChoreDetailFragment;
 import com.example.choreplannerapp.fragments.ChoreFragment;
 import com.example.choreplannerapp.fragments.HomeFragment;
-import com.example.choreplannerapp.fragments.UserFragment;
 import com.example.choreplannerapp.interfaces.ChoreInterface;
 import com.example.choreplannerapp.objects.Chore;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,12 +38,26 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
     ArrayList<Chore> personalChores =new ArrayList<>();
     FirebaseAuth mAuth;
 
+    int parentOrChild = -1;
+
     String mCustomToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+//        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//        alertDialog.setTitle("User Selection");
+//        alertDialog.setMessage("Are you a child or an adult?");
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CHILD",
+//                (dialog, which) -> parentOrChild = 0);
+//        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ADULT",
+//                (dialog, which) -> {
+//                        parentOrChild = 1;
+//                         });
+//        alertDialog.show();
 
 
         // Initialize Firebase Auth
@@ -64,16 +82,12 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
 //                    }
 //                });
 
-        populateLists();
+            populateLists();
+
 
         navigationView = findViewById(R.id.navigationView);
         navigationView.setSelectedItemId(R.id.home);
 
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores))
-                .commit();
 
         navigationView.setOnItemSelectedListener(item -> {
 
@@ -85,28 +99,23 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
                             .commit();
                     return true;
 
-                case R.id.userProfile:
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, UserFragment.newInstance(personalChores))
-                            .commit();
-                    return true;
-
                 case R.id.piggyBank:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragment_container, ChatFragment.newInstance())
+                            .replace(R.id.fragment_container, BankFragment.newInstance())
                             .commit();
                     return true;
 
                 case R.id.wheel:
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, CalendarFragment.newInstance())
-                            .commit();
-                    return true;
+
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, WheelFragment.newInstance())
+                                .commit();
+                        return true;
 
                 case R.id.chorePicker:
+
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container, ChoreFragment.newInstance(listOfChoreLists))
@@ -218,7 +227,50 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+      //  updateUI(currentUser);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.user_menu_button:
+
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("User Selection");
+                alertDialog.setMessage("Are you a child or an adult?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CHILD",
+                        (dialog, which) -> getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, UserChildFragment.newInstance())
+                                .addToBackStack("userChild")
+                                .commit());
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ADULT",
+                        (dialog, which) -> getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, UserAdultFragment.newInstance())
+                                .addToBackStack("userAdult")
+                                .commit());
+                alertDialog.show();
+
+
+                break;
+            case R.id.settings_menu_button:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, SettingsFragment.newInstance())
+                        .addToBackStack("settings")
+                        .commit();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

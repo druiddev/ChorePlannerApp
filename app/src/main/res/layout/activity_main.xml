@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/med_brown"
+    tools:context=".activities.MainActivity">
 
 <FrameLayout
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="0dp"
+    android:background="@drawable/layout_bg"
     app:layout_constraintBottom_toTopOf="@+id/navigationView"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
@@ -22,13 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:itemIconTint="@color/selected_bottom_nav_icon"
-        app:itemTextColor="@color/off_white"
+        app:itemTextColor="@color/peach"
         app:itemIconSize="35dp"
-        android:background="@color/purple_dark_background"
+        android:background="@color/med_brown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/child_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.choreplannerapp.R;
 
-public class CalendarFragment extends Fragment {
+public class WheelFragment extends Fragment {
 
-    public static CalendarFragment newInstance() {
+    public static WheelFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        CalendarFragment fragment = new CalendarFragment();
+        WheelFragment fragment = new WheelFragment();
         fragment.setArguments(args);
         return fragment;
     }

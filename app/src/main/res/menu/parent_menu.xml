@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/piggyBank"
+        android:title="@string/bank"
+        android:icon="@drawable/piggybank"/>
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/home_icon"/>
+
+
+    <item
+        android:id="@+id/chorePicker"
+        android:title="@string/chore_picker"
+        android:icon="@drawable/housekeeping"/>
+
+
+</menu>

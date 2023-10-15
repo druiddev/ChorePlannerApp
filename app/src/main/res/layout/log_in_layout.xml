@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp">
+    android:background="@drawable/bear_border">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginBottom="16dp"
@@ -16,6 +13,33 @@
         android:layout_width="300dp"
         android:src="@drawable/lg__3_"
         android:layout_height="400dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/google_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/google"
+            android:contentDescription="@string/google_button" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/fb"
+            android:contentDescription="@string/facebook_button" />
+
+
+
+
+    </LinearLayout>
 
     <EditText
         android:hint="@string/email"
@@ -39,10 +63,9 @@
         android:layout_marginTop="16dp"
         android:id="@+id/login_signin_button"
         android:text="@string/sign_in"
+        android:textSize="16sp"
         android:layout_gravity="center"
         android:layout_width="100dp"
         android:layout_height="60dp"/>
-
-
 
 </LinearLayout>

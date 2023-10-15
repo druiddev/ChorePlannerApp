@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.choreplannerapp.R;
-import com.example.choreplannerapp.objects.Chore;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class ChildWeekAdapter extends BaseAdapter {
         ChildWeekAdapter.ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.chore_list_layout, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.weekday_grid_cell, parent, false);
             viewHolder = new ChildWeekAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
