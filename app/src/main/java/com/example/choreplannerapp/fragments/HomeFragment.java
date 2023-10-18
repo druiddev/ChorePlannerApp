@@ -29,6 +29,10 @@ import com.example.choreplannerapp.adapters.UserListChoreBaseAdapter;
 import com.example.choreplannerapp.interfaces.ChoreInterface;
 import com.example.choreplannerapp.objects.Chore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +41,14 @@ public class HomeFragment extends Fragment {
 
     private static final String ARG__HOME_CHORES = "ARG_HOME_CHORES";
     ChoreInterface choreListener;
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = auth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference(currentUser.getUid());
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference dr = db.getReference();
+
 
     public static HomeFragment newInstance(ArrayList<Chore> personalChores) {
 
@@ -77,32 +89,14 @@ public class HomeFragment extends Fragment {
         weekDays.setAdapter(weekAdapter);
 
 
-//        FloatingActionButton addNoteButton = view.findViewById(R.id.home_note_add_button);
-//        TextView notePad = view.findViewById(R.id.home_note_pad);
-//
-//        //TODO setvisibility gone if user is a child
-//        addNoteButton.setOnClickListener(v -> {
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-//            final View noteLayout = getLayoutInflater().inflate(R.layout.note_layout, null);
-//            builder.setView(noteLayout);
-//            builder.setTitle("Note To Child");
-//            EditText editText = noteLayout.findViewById(R.id.edit_text);
-//
-//            builder.setPositiveButton("POST NOTE", (dialog, which) -> notePad.setText(editText.getText()));
-//
-//            builder.setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss());
-//
-//            AlertDialog alertDialog = builder.create();
-//            alertDialog.show();
-//        });
-
             if (getArguments() != null) {
 
                 ArrayList<Chore> personalChores = (ArrayList<Chore>) getArguments().getSerializable(ARG__HOME_CHORES);
                 HomeChoreBaseAdapter adapter = new HomeChoreBaseAdapter(view.getContext(), personalChores);
                 GridView homeChoreList = view.findViewById(R.id.child_home_chore_grid);
                 homeChoreList.setAdapter(adapter);
+
+                database.getReference().child("Users").child(currentUser.getUid()).child("chores").setValue(personalChores);
 
 
                 homeChoreList.setOnItemClickListener((parent, view1, position, id) -> {

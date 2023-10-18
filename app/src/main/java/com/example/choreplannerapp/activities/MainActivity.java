@@ -1,9 +1,11 @@
 package com.example.choreplannerapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +22,15 @@ import com.example.choreplannerapp.fragments.ChoreFragment;
 import com.example.choreplannerapp.fragments.HomeFragment;
 import com.example.choreplannerapp.interfaces.ChoreInterface;
 import com.example.choreplannerapp.objects.Chore;
+import com.example.choreplannerapp.objects.Users;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,53 +44,43 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
     ArrayList<Chore> bedroom = new ArrayList<>();
     ArrayList<ArrayList<Chore>> listOfChoreLists = new ArrayList<>();
     ArrayList<Chore> personalChores =new ArrayList<>();
-    FirebaseAuth mAuth;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = auth.getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference(currentUser.getUid());
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference dr = db.getReference();
 
-    int parentOrChild = -1;
-
-    String mCustomToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-//        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-//        alertDialog.setTitle("User Selection");
-//        alertDialog.setMessage("Are you a child or an adult?");
-//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CHILD",
-//                (dialog, which) -> parentOrChild = 0);
-//        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ADULT",
-//                (dialog, which) -> {
-//                        parentOrChild = 1;
-//                         });
-//        alertDialog.show();
+        populateLists();
 
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
-//        mAuth.signInWithCustomToken(mCustomToken)
-//                .addOnCompleteListener(this, OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("FIREBASE", "signInWithCustomToken:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w("FIREBASE", "signInWithCustomToken:failure", task.getException());
-//                            Toast.makeText(CustomAuthActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//                    }
-//                });
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+             //   invoiceNo = snapshot.getChildrenCount();
+            }
 
-            populateLists();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores))
+                .addToBackStack("home")
+                .commit();
+
+
 
 
         navigationView = findViewById(R.id.navigationView);
@@ -223,14 +221,6 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-      //  updateUI(currentUser);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -241,22 +231,15 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
         switch (item.getItemId()){
             case R.id.user_menu_button:
 
-                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-                alertDialog.setTitle("User Selection");
-                alertDialog.setMessage("Are you a child or an adult?");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CHILD",
-                        (dialog, which) -> getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_container, UserChildFragment.newInstance())
-                                .addToBackStack("userChild")
-                                .commit());
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ADULT",
-                        (dialog, which) -> getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_container, UserAdultFragment.newInstance())
-                                .addToBackStack("userAdult")
-                                .commit());
-                alertDialog.show();
+                if(currentUser != null) {
+                    Log.v("GOOGLETAG", "Account token: MAIN : " + currentUser.getUid());
+                }
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, UserAdultFragment.newInstance())
+                        .addToBackStack("adultUser")
+                        .commit();
 
 
                 break;

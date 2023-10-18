@@ -161,4 +161,18 @@ public class LogInActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if(currentUser != null) {
+            Log.v("GOOGLETAG", "Account token: LOG IN SCREEN ON START OVERRIDE: " + currentUser.getUid());
+            Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        //use current user here to open the home fragment with user as a parameter to update all ui to their data
+    }
 }

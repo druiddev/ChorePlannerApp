@@ -41,6 +41,7 @@
     <string name="hi_parent">Hi Parent!!</string>
     <string name="facebook_button">facebook button</string>
     <string name="google_button">google button</string>
+    <string name="sign_out">Sign Out</string>
 
 
 </resources>
