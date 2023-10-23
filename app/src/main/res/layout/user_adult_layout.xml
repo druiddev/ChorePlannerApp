@@ -23,6 +23,15 @@
 
     <Button
         android:layout_gravity="center"
+        android:id="@+id/user_add_child_button"
+        android:text="@string/add_child"
+        android:layout_height="50dp"
+        android:layout_width="200dp"
+        />
+
+    <Button
+        android:layout_marginTop="400dp"
+        android:layout_gravity="center"
         android:id="@+id/user_adult_sign_out"
         android:text="@string/sign_out"
         android:layout_height="50dp"

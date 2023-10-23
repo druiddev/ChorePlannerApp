@@ -4,14 +4,17 @@ import java.io.Serializable;
 
 public class Chore implements Serializable {
 
-    int choreImage;
-    String choreDescription;
-    int chorePointValue;
+    int choreImage = 0;
+    String choreDescription= "";
+    int chorePointValue = 0;
 
     public Chore(int choreImage, String choreDescription, int chorePointValue) {
         this.choreImage = choreImage;
         this.choreDescription = choreDescription;
         this.chorePointValue = chorePointValue;
+    }
+
+    public Chore() {
     }
 
     public int getChoreImage() {

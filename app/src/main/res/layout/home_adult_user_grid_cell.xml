@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/user_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/square_layout"
+        android:backgroundTint="@color/light_tan"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:text="Sarah"
+            android:textSize="50sp" />
+
+        <ImageView
+            android:id="@+id/user_name_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
+            android:gravity="center_vertical"
+            android:paddingBottom="15dp"
+            android:src="@drawable/create_profile_bear_transparent" />
+
+    </LinearLayout>
+
+</LinearLayout>

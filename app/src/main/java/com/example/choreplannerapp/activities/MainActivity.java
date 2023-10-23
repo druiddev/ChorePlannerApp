@@ -1,28 +1,26 @@
 package com.example.choreplannerapp.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.choreplannerapp.R;
-import com.example.choreplannerapp.fragments.LogInFragment;
+import com.example.choreplannerapp.fragments.ChildCreationFragment;
 import com.example.choreplannerapp.fragments.SettingsFragment;
 import com.example.choreplannerapp.fragments.UserAdultFragment;
-import com.example.choreplannerapp.fragments.UserChildFragment;
 import com.example.choreplannerapp.fragments.WheelFragment;
 import com.example.choreplannerapp.fragments.BankFragment;
 import com.example.choreplannerapp.fragments.ChoreDetailFragment;
 import com.example.choreplannerapp.fragments.ChoreFragment;
 import com.example.choreplannerapp.fragments.HomeFragment;
 import com.example.choreplannerapp.interfaces.ChoreInterface;
+import com.example.choreplannerapp.objects.Adult;
+import com.example.choreplannerapp.objects.Child;
 import com.example.choreplannerapp.objects.Chore;
-import com.example.choreplannerapp.objects.Users;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,13 +41,18 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
     ArrayList<Chore> halfBath = new ArrayList<>();
     ArrayList<Chore> bedroom = new ArrayList<>();
     ArrayList<ArrayList<Chore>> listOfChoreLists = new ArrayList<>();
-    ArrayList<Chore> personalChores =new ArrayList<>();
+    ArrayList<Chore> personalChores = new ArrayList<>();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = auth.getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference(currentUser.getUid());
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference dr = db.getReference();
+    private DatabaseReference dr = db.getReference("Users");
+
+    ArrayList<Adult> adults = new ArrayList<>();
+    Adult mainAdult;
+
+    ArrayList<Child> children = new ArrayList<>();
 
 
     @Override
@@ -59,24 +62,33 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
 
         populateLists();
 
+        getData();
 
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-             //   invoiceNo = snapshot.getChildrenCount();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+//TODO WRONG BUT CLOSE
+        dr.child(currentUser.getUid()).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
 
+                    for(DataSnapshot child: task.getResult().getChildren()){
+                        Adult adult = child.getValue(Adult.class);
+                        adults.add(adult);
+                        mainAdult = adult;
+                        assert mainAdult != null;
+                        children = mainAdult.getChildrenList();
+                    }
+
+                }
+            else {
+                Log.d("firebase", String.valueOf(task.getResult().getValue()));
             }
         });
 
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores))
+                .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores, children))
                 .addToBackStack("home")
                 .commit();
 
@@ -91,9 +103,14 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
 
             switch (item.getItemId()) {
                 case R.id.home:
+
+                    database.getReference().child("Users")
+                            .child(currentUser.getUid()).child("chores").setValue(personalChores);
+
+
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores))
+                            .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores, children))
                             .commit();
                     return true;
 
@@ -200,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
     @Override
     public void getChoresFromPicker(Chore chore) {
         personalChores.add(chore);
+
     }
 
     @Override
@@ -218,6 +236,28 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
 
         getSupportFragmentManager().popBackStack();
 
+    }
+
+    @Override
+    public void openChildCreation() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, ChildCreationFragment.newInstance())
+                .addToBackStack("childCreation")
+                .commit();
+    }
+
+    @Override
+    public void goToMain(Child child) {
+
+        children.add(child);
+
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment.newInstance(personalChores, children))
+                .addToBackStack("home")
+                .commit();
     }
 
     @Override
@@ -255,5 +295,39 @@ public class MainActivity extends AppCompatActivity implements ChoreInterface {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
+
+
+
+    private void getData() {
+
+
+        dr.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+
+                for(DataSnapshot child: children){
+                    Adult user = child.getValue(Adult.class);
+                    adults.add(user);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("FIREBASEERROR", "onCancelled: " + error);
+
+            }
+        });
+    }
+
 
 }

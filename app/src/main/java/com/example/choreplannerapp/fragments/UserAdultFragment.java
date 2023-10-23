@@ -56,16 +56,25 @@ public class UserAdultFragment extends Fragment {
 
         TextView name = view.findViewById(R.id.user_adult_name_text_view);
         Button signOut = view.findViewById(R.id.user_adult_sign_out);
+        Button addChild = view.findViewById(R.id.user_add_child_button);
+
+
         name.setText(currentUser.getDisplayName());
+
+
+        addChild.setOnClickListener(v-> {
+            choreListener.openChildCreation();
+
+        });
+
+
 
         signOut.setOnClickListener(v -> {
             auth.signOut();
             Intent intent = new Intent(requireContext(), LogInActivity.class);
             startActivity(intent);
         });
-
-
-        }
+    }
 
     @Nullable
     @Override
